@@ -138,9 +138,11 @@ for i in range(1,count):
 
     if i % 100 == 0:
         df_instagram = pd.DataFrame({'date': instagram_dates, 'title': instagram_title})
-        df_instagram.to_csv('prj_sns_trend_crawling_instagram_{}.csv'.format(i))
+        df_instagram.to_csv('../prj_sns_trend_private/crawling_instagram_{}.csv'.format(i))
         print(i)
     time.sleep(1)
+
+
 
 df_instagram= pd.DataFrame({'date': instagram_dates, 'title' : instagram_title})
 
