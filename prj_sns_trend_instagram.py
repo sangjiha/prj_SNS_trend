@@ -48,8 +48,8 @@ LOGIN_URL = 'https://www.instagram.com/'
 
 driver.get(LOGIN_URL)
 time.sleep(2)
-id = '01052942210'
-password = 'Eun5375353!'
+id = 'the_bettersun'
+password = 'Eun_5375353!'
 id_input = driver.find_elements_by_css_selector('#loginForm > div > div:nth-child(1) > div > label > input')[0]
 id_input.send_keys(id)
 password_input = driver.find_elements_by_css_selector('#loginForm > div > div:nth-child(2) > div > label > input')[0]
@@ -90,7 +90,7 @@ time.sleep(1)
 
 #키워드 크롤링 시작
 
-keyword = "치즈볼"
+keyword = "치킨"
 
 url = "https://www.instagram.com/explore/tags/{}/".format(keyword)
 instagram_title = []
@@ -145,6 +145,6 @@ for i in range(1,count):
 
 
 df_instagram= pd.DataFrame({'date': instagram_dates, 'title' : instagram_title})
-
+df_instagram.to_csv('../prj_sns_trend_private/crawling_instagram.csv')
 
 
