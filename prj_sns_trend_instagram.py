@@ -95,6 +95,7 @@ keyword = "치킨"
 url = "https://www.instagram.com/explore/tags/{}/".format(keyword)
 instagram_title = []
 instagram_dates = []
+instagram_likes = []
 driver.get(url)
 time.sleep(3)
 count = driver.find_element_by_css_selector('#react-root > section > main > header > div.WSpok > div > div.Igw0E.IwRSH.eGOV_._4EzTm.a39_R > span > span').text
@@ -116,17 +117,22 @@ for i in range(1,count):
         date = driver.find_elements_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/div[2]/a/time') #날짜가 들어있는 xpath
         date = date[0].get_attribute('title')  #날짜만 가져오기
 
+        # 좋아요수 가져오기
+        likes = driver.find_elements_by_xpath(
+            '/html/body/div[4]/div[2]/div/article/div[3]/section[2]/div/div/button/span').text
+
         instagram_title.append(title)
         instagram_dates.append(date)
+        instagram_likes.append(likes)
 
 
     except:
-        print(i, 'title/dates error')
+        print(i, 'title/dates/likes error')
         #도중에 에러가 발생했을 경우, 내용과 날짜에 NaN값을 추가
 
         instagram_title.append("NaN")
         instagram_dates.append('NaN')
-
+        instagram_likes.append('NaN')
 
     try:
         #다음페이지로 넘어가는 '>'표시 클릭
@@ -137,14 +143,14 @@ for i in range(1,count):
         #driver.close() # date = datum2.text #print(date)
 
     if i % 100 == 0:
-        df_instagram = pd.DataFrame({'date': instagram_dates, 'title': instagram_title})
-        df_instagram.to_csv('../prj_sns_trend_private/crawling_instagram_{}.csv'.format(i))
+        df_instagram = pd.DataFrame({'date': instagram_dates, 'title': instagram_title, 'likes' : instagram_likes})
+        df_instagram.to_csv('../prj_sns_trend_private/crawling_instagram_치킨_{}.csv'.format(i))
         print(i)
     time.sleep(1)
 
 
 
-df_instagram= pd.DataFrame({'date': instagram_dates, 'title' : instagram_title})
+df_instagram= pd.DataFrame({'date': instagram_dates, 'title' : instagram_title, 'likes' : instagram_likes})
 df_instagram.to_csv('../prj_sns_trend_private/crawling_instagram.csv')
 
 
